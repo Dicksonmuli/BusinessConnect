@@ -17,6 +17,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'YP_API_KEY', YpApiKey
+    }
 }
 
 dependencies {
