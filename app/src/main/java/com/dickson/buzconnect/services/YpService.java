@@ -1,5 +1,7 @@
 package com.dickson.buzconnect.services;
 
+import com.dickson.buzconnect.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,13 +26,12 @@ public class YpService {
 /
 
 //        using HttpUrl class to construct the URL we'll send our request to
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YELP_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.YELP_LOCATION_QUERY_PARAMETER, location);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YP_BASE_URL).newBuilder();
+//        urlBuilder.addQueryParameter(Constants.YELP_LOCATION_QUERY_PARAMETER, location);
         String url = urlBuilder.build().toString();
 
 //       create request using the created url
         Request request= new Request.Builder()
-                .header("Authorization", "Bearer " + Constants.YELP_TOKEN)
                 .url(url)
                 .build();
 //        execute this request
