@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.dickson.buzconnect.ui.LoginActivity"
-    android:background="#DEE2D6">
+    android:background="#F3F8F2">
 
     <LinearLayout
         android:orientation="vertical"
