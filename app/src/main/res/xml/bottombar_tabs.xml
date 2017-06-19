@@ -11,6 +11,5 @@
             title="Nearby" />
         <tab
             id="@+id/tab_friends"
-            icon="@drawable/ic_friends"
             title="Friends" />
     </tabs>

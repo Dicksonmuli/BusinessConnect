@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.dickson.buzconnect.ui.MainActivity">
 
 
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp">
+        android:layout_height="0dp"
+        android:paddingTop="20dp"
+        android:layout_weight="1">
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="?attr/actionBarSize"
-            android:text="Hello World!"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"/>
+
 
         <EditText
             android:id="@+id/itemSearchEditText"
@@ -36,10 +44,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="What are you looking for"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="27dp" />
+            android:layout_below="@+id/locationEditText"/>
 
         <EditText
             android:id="@+id/locationEditText"
@@ -47,41 +52,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
             android:layout_marginStart="55dp"
-            android:hint="Location"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <TextView
-                    android:id="@+id/recent"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_restore"
-                    android:text="Recent" />
-                <TextView
-                    android:id="@+id/favorite"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/recent"
-                    android:drawableTop="@drawable/ic_restore"
-                    android:text="Favorite" />
-                <TextView
-                    android:id="@+id/saveButton"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_restore"
-                    android:text="Recent" />
+            android:hint="Location"
+            android:layout_below="@id/carouselView"/>
 
 
-
-
-            </RelativeLayout>
         </RelativeLayout>
 
-    </LinearLayout>
+    </FrameLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
 
-</RelativeLayout>
+</LinearLayout>
