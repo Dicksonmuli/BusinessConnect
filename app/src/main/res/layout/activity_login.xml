@@ -29,7 +29,7 @@
             android:padding="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="@android:color/white"
-            android:textColorHint="@color/colorDivider"
+            android:textColorHint="@color/colorLightGrey"
             android:textSize="20sp" />
 
         <EditText
@@ -43,7 +43,7 @@
             android:nextFocusDown="@+id/passwordEditText"
             android:padding="10dp"
             android:textColor="@android:color/white"
-            android:textColorHint="@color/colorDivider"
+            android:textColorHint="@color/colorLightGrey"
             android:textSize="20sp" />
 
 
@@ -52,7 +52,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/doc_search_button"
+            android:background="@drawable/login_button"
             android:padding="10dp"
             android:text="Log in"
             android:textColor="@color/colorTextIcons" />
