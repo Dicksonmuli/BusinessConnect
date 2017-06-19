@@ -1,6 +1,7 @@
 package com.dickson.buzconnect.services;
 
 import com.dickson.buzconnect.Constants;
+import com.dickson.buzconnect.services.models.Listing;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,9 +66,9 @@ public class YpService {
                     String openHours = listingJSON.getString("openHours");
                     String openStatus = listingJSON.getString("openStatus");
 
-                    Listing restaurant = new Listing(name, city, category, phone, website, rating,
+                    Listing listing = new Listing(name, city, category, phone, website, rating,
                             imageUrl, latitude, longitude, couponUrl, address, openHours, openStatus);
-                    listings.add(restaurant);
+                    listings.add(listing);
                 }
             }
         } catch (IOException e) {
