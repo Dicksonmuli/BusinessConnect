@@ -91,5 +91,20 @@ public class SavedListingListFragment extends Fragment {
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+    @Override
+    //method is now public
+    public void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
+    }
+
+    /** onstartdrag listener override
+     *  which will eventually send our touch events back to our SimpleItemTouchHelperCallback
+     * @param viewHolder
+     */
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
+    }
 
 }
