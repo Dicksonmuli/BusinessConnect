@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
+import com.dickson.buzconnect.models.Listing;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -66,8 +67,8 @@ public class SavedListingListFragment extends Fragment {
          *  In line below, we change 6th parameter 'this' to 'getActivity()'
          *  because fragments do not have own context:
          */
-        mFirebaseAdapter = new FirebaseRestaurantListAdapter
-                (Restaurant.class, R.layout.restaurant_list_item_drag, FirebaseRestaurantViewHolder.class,
+        mFirebaseAdapter = new FirebaseListingListAdapter
+                (Listing.class, R.layout.restaurant_list_item_drag, FirebaseListingViewHolder.class,
                         query, this, getActivity());
 
         mRecyclerView.setHasFixedSize(true);
