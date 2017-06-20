@@ -75,7 +75,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             imageView.setImageResource(sampleImages[position]);
         }
     };
-
+    //overriding onstart
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    //overriding onStop
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
     @Override
     public void onClick(View v) {
 
