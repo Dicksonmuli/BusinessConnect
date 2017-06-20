@@ -76,8 +76,8 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflating the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
+        // Inflating the layout view for this fragment
+        View view = inflater.inflate(R.layout.fragment_listing_detail, container, false);
         ButterKnife.bind(this, view);
 
 
