@@ -32,7 +32,7 @@ public class ListingDetailActivity extends AppCompatActivity{
 
         mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
 //        pull out our ArrayList<Restaurant> Parcelable using the unwrap() method
-        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANTS));
+        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_LISTINGS));
         int startingPosition =getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
 //        instructing ViewPager to use adapterViewPager adapter.
