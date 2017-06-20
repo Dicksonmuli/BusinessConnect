@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,7 +58,7 @@ public class SavedListingListFragment extends Fragment {
          */
         Query query = FirebaseDatabase
                 .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
+                .getReference(Constants.FIREBASE_CHILD_BUSINESSES)
                 .child(uid)
                 .orderByChild(Constants.FIREBASE_QUERY_INDEX);
 
