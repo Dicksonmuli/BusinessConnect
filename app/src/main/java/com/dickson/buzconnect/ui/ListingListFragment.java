@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
+import com.dickson.buzconnect.services.YpService;
 import com.dickson.buzconnect.util.OnListingSelectedListener;
 
 import java.io.IOException;
@@ -91,7 +92,7 @@ public class ListingListFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
-                getRestaurants(query);
+                getListings(query);
                 return false;
             }
 
@@ -117,15 +118,15 @@ public class ListingListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mOnRestaurantSelectedListener = (OnRestaurantSelectedListener) context;
+            mOnRestaurantSelectedListener = (OnListingSelectedListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + e.getMessage());
         }
     }
-    public void getRestaurants(String location) {
-        final YelpService yelpService = new YelpService();
+    public void getListings(String location) {
+        final YpService yelpService = new YpService();
 
-        yelpService.findRestaurants(location, new Callback() {
+        yelpService.findListings(location, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -134,7 +135,7 @@ public class ListingListFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) {
-                mRestaurants = yelpService.processResults(response);
+                mListings = yelpService.processResults(response);
 
 
 
@@ -144,7 +145,7 @@ public class ListingListFragment extends Fragment {
 
                     @Override
                     public void run() {
-                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants, mOnRestaurantSelectedListener);
+                        mAdapter = new ListingListAdapter(getActivity(), mListings, mOnRestaurantSelectedListener);
                         // Line above states `getActivity()` instead of previous
                         // 'getApplicationContext()' because fragments do not have own context,
                         // must instead inherit it from corresponding activity.
