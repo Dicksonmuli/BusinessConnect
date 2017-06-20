@@ -13,6 +13,7 @@ public class Constants {
     public static final String YP_FORMAT_PARAMETER = "&format=json&key=";
     //        a constant to save to shared preferences
     public static final String PREFERENCES_LOCATION_KEY = "location";
+    public static final String PREFERENCES_TERM_KEY = "location";
 
     public static final String FIREBASE_CHILD_SEARCHED_LOCATION = "searchedLocation";
     public static final String FIREBASE_CHILD_BUSINESSES = "businesses";

@@ -1,18 +1,34 @@
 package com.dickson.buzconnect.ui;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.util.OnListingSelectedListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by dickson on 6/20/17.
@@ -25,6 +41,7 @@ public class ListingListFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
+    private String mRecentTerm;
     private OnListingSelectedListener mOnRestaurantSelectedListener;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -40,5 +57,110 @@ public class ListingListFragment extends Fragment {
         mEditor = mSharedPreferences.edit();
         //instructs fragment to include menu options
         setHasOptionsMenu(true);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_listing_list, container, false);
+        ButterKnife.bind(this, view);
+
+        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
+        mRecentTerm = mSharedPreferences.getString(Constants.PREFERENCES_TERM_KEY, null);
+
+        if (mRecentAddress != null && mRecentTerm != null) {
+            getListings(mRecentAddress);
+        }
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+    @Override
+    // Method is now void, menu inflater is now passed in as argument:
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // Call super to inherit method from parent:
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_search, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                addToSharedPreferences(query);
+                getRestaurants(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+    //adding to sharedPreferences
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
+
+    /**
+     * in order to allow fragments and activities to communicate
+     * we need to capture an instance of our interface
+     * and cast it into the context of the activities we need to communicate with
+     * @param context
+     */
+    //onAttach lifecyle
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnRestaurantSelectedListener = (OnRestaurantSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
+    }
+    public void getRestaurants(String location) {
+        final YelpService yelpService = new YelpService();
+
+        yelpService.findRestaurants(location, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                mRestaurants = yelpService.processResults(response);
+
+
+
+                getActivity().runOnUiThread(new Runnable() {
+                    // Line above states 'getActivity()' instead of previous 'RestaurantListActivity.this'
+                    // because fragments do not have own context, and must inherit from corresponding activity.
+
+                    @Override
+                    public void run() {
+                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants, mOnRestaurantSelectedListener);
+                        // Line above states `getActivity()` instead of previous
+                        // 'getApplicationContext()' because fragments do not have own context,
+                        // must instead inherit it from corresponding activity.
+
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                        // Line above states 'new LinearLayoutManager(getActivity());' instead of previous
+                        // 'new LinearLayoutManager(RestaurantListActivity.this);' when method resided
+                        // in RestaurantListActivity because Fragments do not have context
+                        // and must instead inherit from corresponding activity.
+
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
+                    }
+                });
+            }
+        });
     }
 }
