@@ -44,8 +44,8 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.viewImageButton) Button mViewImageButton;
 
     //  listing object
-    private Listing mRestaurant;
-    private ArrayList<Listing> mRestaurants;
+    private Listing mListing;
+    private ArrayList<Listing> mListings;
     private int mPosition;
     private String mSource;
     private static final int REQUEST_IMAGE_CAPTURE = 111;
@@ -65,9 +65,9 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        unwrapping listing on onCreate
-        mRestaurants = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_LISTINGS));
+        mListings = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_LISTINGS));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
-        mRestaurant = mRestaurants.get(mPosition);
+        mListing = mListings.get(mPosition);
 //        invoke the menu items
         mSource = getArguments().getString(Constants.KEY_SOURCE);
         setHasOptionsMenu(true);
@@ -81,36 +81,38 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
         ButterKnife.bind(this, view);
 
 
-        if (!mRestaurant.getImageUrl().contains("http")) {
+        if (!mListing.getImageUrl().contains("http")) {
             try {
-                Bitmap image = decodeFromFirebaseBase64(mRestaurant.getImageUrl());
+                Bitmap image = decodeFromFirebaseBase64(mListing.getImageUrl());
                 mImageLabel.setImageBitmap(image);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            // This block of code should already existed, I just moved it to the 'else' statement:
+            //  moved it to the 'else' statement:
             Picasso.with(view.getContext())
-                    .load(mRestaurant.getImageUrl())
+                    .load(mListing.getImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mImageLabel);
         }
 
-        mNameLabel.setText(mRestaurant.getName());
-        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
-        mRatingLabel.setText(Double.toString(mRestaurant.getRating()) + "/5");
-        mPhoneLabel.setText(mRestaurant.getPhone());
-        mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
+        mNameLabel.setText(mListing.getName());
+        mCategoriesLabel.setText( mListing.getCategory());
+        mRatingLabel.setText(Double.toString(mListing.getRating()) );
+        mPhoneLabel.setText(mListing.getPhone());
+        mAddressLabel.setText( mListing.getAddress());
+        mOpenTimeLabel.setText( mListing.getOpenHours());
+        mOpenStateLabel.setText( mListing.getOpenStatus());
 
         mWebsiteLabel.setOnClickListener( this);
         mPhoneLabel.setOnClickListener(this);
         mAddressLabel.setOnClickListener( this);
-        //setting click listener to saveRestaurant button
+        //setting click listener to saveListingButton button
         if (mSource.equals(Constants.SOURCE_SAVED)) {
-            mSaveRestaurantButton.setVisibility(View.GONE);
+            mSaveListingButton.setVisibility(View.GONE);
         } else {
-            mSaveRestaurantButton.setOnClickListener(this);
+            mSaveListingButton.setOnClickListener(this);
         }
 
 
