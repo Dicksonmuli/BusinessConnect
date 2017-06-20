@@ -19,6 +19,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.passwordLoginButton) Button mPasswordLoginButton;
     @Bind(R.id.emailEditText) EditText mEmailEditText;

@@ -24,7 +24,7 @@ import okhttp3.Response;
 public class YpService {
     private static OkHttpClient client = new OkHttpClient();
     public static void findListings(String location, String term, Callback callback) {
-/
+
 
 //        using HttpUrl class to construct the URL we'll send our request to
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YP_BASE_URL).newBuilder();

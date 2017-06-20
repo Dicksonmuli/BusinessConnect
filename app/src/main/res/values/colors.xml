@@ -2,8 +2,16 @@
 <resources>
     <color name="colorPrimaryBlue">#3581B8</color>
     <color name="colorPrimaryDarkBlue">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="colorLightGrey">#F3F8F2</color>
     <color name="colorGrey">#EBE9E9</color>
     <color name="colorDarkGrey">#DEE2D6</color>
+    <color name="colorAccentPink">#FF4081</color>
+    <color name="colorPrimaryOrange">#FF5722</color>
+    <color name="colorPrimaryDarkOrange">#E64A19</color>
+    <color name="colorPrimaryLightOrange">#FFCCBC</color>
+    <color name="colorTextIcons">#FFFFFF</color>
+    <color name="colorAccentBlue">#009688</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorDivider">#B6B6B6</color>
 </resources>

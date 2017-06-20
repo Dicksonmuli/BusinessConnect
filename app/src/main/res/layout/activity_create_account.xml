@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dickson.buzconnect.ui.LoginActivity"
-    android:background="#F3F8F2">
+    tools:context="com.dickson.buzconnect.ui.CreateAccountActivity"
+    android:background="@color/colorLightGrey">
 
     <LinearLayout
         android:orientation="vertical"
@@ -16,6 +15,20 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape_login"
+            android:drawableLeft="@drawable/ic_mode_edit_white_24dp"
+            android:hint="Name"
+            android:nextFocusDown="@+id/passwordEditText"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/emailEditText"
@@ -28,7 +41,7 @@
             android:nextFocusDown="@+id/passwordEditText"
             android:padding="10dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textColorHint="@color/colorLightGrey"
             android:textSize="20sp" />
 
@@ -42,19 +55,35 @@
             android:inputType="textPassword"
             android:nextFocusDown="@+id/passwordEditText"
             android:padding="10dp"
-            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/colorLightGrey"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:background="@drawable/round_shape_login"
+            android:drawableLeft="@drawable/ic_verified_user_white_24dp"
+            android:nextFocusDown="@+id/passwordEditText"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@android:color/black"
             android:textColorHint="@color/colorLightGrey"
             android:textSize="20sp" />
 
 
         <Button
-            android:id="@+id/passwordLoginButton"
-            android:layout_width="150dp"
+            android:id="@+id/createUserButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/login_button"
             android:padding="10dp"
-            android:text="Log in"
+            android:text="Sign up"
+            android:background="@drawable/login_button"
+            android:layout_marginTop="15dp"
             android:textColor="@color/colorTextIcons" />
 
         <TextView
@@ -63,9 +92,8 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:textColor="#FCB07E"
-            android:text="Don't have an account? Sign up here!"
-            android:id="@+id/registerTextView"
+            android:text="Already have an account? Log in here!"
+            android:id="@+id/loginTextView"
             android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
@@ -73,11 +101,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Create Account"
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true" />
-
 
 </RelativeLayout>
