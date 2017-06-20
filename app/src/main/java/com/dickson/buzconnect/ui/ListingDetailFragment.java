@@ -5,9 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -49,6 +54,7 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.openStateTextView) TextView mOpenStateLabel;
     @Bind(R.id.savelistingButton) Button mSaveListingButton;
     @Bind(R.id.viewImageButton) Button mViewImageButton;
+    @Bind(R.id.couponUrlTextView) TextView mCouponUrlLabel;
 
     //  listing object
     private Listing mListing;
@@ -111,11 +117,14 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
         mAddressLabel.setText( mListing.getAddress());
         mOpenTimeLabel.setText( mListing.getOpenHours());
         mOpenStateLabel.setText( mListing.getOpenStatus());
+        mCouponUrlLabel.setText( mListing.getOpenStatus());
 
         mWebsiteLabel.setOnClickListener( this);
         mPhoneLabel.setOnClickListener(this);
         mAddressLabel.setOnClickListener( this);
+        mCouponUrlLabel.setOnClickListener(this);
         mViewImageButton.setOnClickListener( this);
+
         //setting click listener to saveListingButton button
         if (mSource.equals(Constants.SOURCE_SAVED)) {
             mSaveListingButton.setVisibility(View.GONE);
@@ -146,6 +155,11 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
                     Uri.parse(mListing.getWebsite()));
             startActivity(webIntent);
         }
+        if (v == mCouponUrlLabel) {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mListing.getWebsite()));
+            startActivity(webIntent);
+        }
         if (v == mPhoneLabel) {
             Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
                     Uri.parse("tel:" + mListing.getPhone()));
@@ -167,16 +181,83 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_BUSINESSES)
                     .child(uid);
-            /** add the pushID of the restaurant to be saved before setting the
+            /** add the pushID of the Listing to be saved before setting the
              * value at given reference
              */
             DatabaseReference pushRef = restaurantRef.push();
             String pushId = pushRef.getKey();
-            mRestaurant.setPushId(pushId);
-            pushRef.setValue(mRestaurant);
+            mListing.setPushId(pushId);
+            pushRef.setValue(mListing);
             Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
         }
     }
+    //inflating photo menu
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            inflater.inflate(R.menu.menu_photo, menu);
+        } else {
+            inflater.inflate(R.menu.menu_main, menu);
+        }
+    }
+    //overriding item selected method
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_photo:
+                onLaunchCamera();
+            default:
+                break;
+        }
+        return false;
+    }
+    //launches the camera
+    public void onLaunchCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    /**
+     * overriding onActivityResult triggered by startActivityForResult(),
+     * in order to snag our picture
+     * @param requestCode - represents the REQUEST_IMAGE_CAPTURE value in onLaunchCamera
+     * @param resultCode -represents the status of the activity
+     * @param data - is an Intent object that includes intent extras
+     *             containing the information being returned
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageLabel.setImageBitmap(imageBitmap);
+            encodeBitmapAndSaveToFirebase(imageBitmap);
+        }
+    }
+
+    /**
+     * encoding Bitmap image and saving to the firebase
+     * creating ByteArrayOutputStream
+     * @param bitmap
+     */
+    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        compressing the image and determining the quality (100)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//        locate the node containing the current image URL for this specific restaurant on this
+//        specific user's saved restaurants list, and overwrite it with our new, encoded image.
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_CHILD_BUSINESSES)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mListing.getPushId())
+                .child("imageUrl");
+        ref.setValue(imageEncoded);
+    }
+
 
 
 

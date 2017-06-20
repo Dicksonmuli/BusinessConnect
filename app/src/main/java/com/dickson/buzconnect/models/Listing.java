@@ -70,7 +70,7 @@ public class Listing {
     public double getLatitude() {
         return latitude;
     }
-    public double getLongitute() {
+    public double getLongitude() {
         return longitude;
     }
     public String getCouponUrl() {
@@ -85,5 +85,20 @@ public class Listing {
     public String getOpenStatus() {
         return openStatus;
     }
+    //adding pushId - a unique id to identify each user
+    public String getPushId() {
+        return pushId;
+    }
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
 
 }
