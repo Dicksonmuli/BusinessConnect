@@ -9,14 +9,12 @@
     tools:context="com.dickson.buzconnect.ui.MainActivity">
 
 
-
     <FrameLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="20dp"
-        android:layout_weight="1">
-
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
 
 
         <RelativeLayout
@@ -32,33 +30,62 @@
                 app:radius="6dp"
                 app:slideInterval="3000"
                 app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"/>
+                app:strokeWidth="1dp">
+
+            </com.synnapps.carouselview.CarouselView>
 
 
-        <EditText
-            android:id="@+id/itemSearchEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="55dp"
-            android:layout_marginStart="55dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="What are you looking for"
-            android:layout_below="@+id/locationEditText"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/carouselView"
+                android:background="@color/colorPrimaryDarkOrange">
 
-        <EditText
-            android:id="@+id/locationEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="55dp"
-            android:layout_marginStart="55dp"
-            android:hint="Location"
-            android:layout_below="@id/carouselView"/>
+                <EditText
+                    android:id="@+id/itemSearchEditText"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTextIcons"
+                    android:padding="5dp"
+                    android:hint="What are you looking for"
+                    android:inputType="textPersonName"
+                    android:layout_alignBaseline="@+id/button2"
+                    android:layout_alignBottom="@+id/button2"
+                    android:layout_toLeftOf="@+id/button2"
+                    android:layout_toStartOf="@+id/button2"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginEnd="11dp" />
+
+
+                <EditText
+                    android:id="@+id/locationEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorTextIcons"
+                    android:layout_alignLeft="@+id/itemSearchEditText"
+                    android:layout_alignStart="@+id/itemSearchEditText"
+                    android:layout_below="@+id/itemSearchEditText"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:hint="Enter Location"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/findListingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_search_white_24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
 
 
         </RelativeLayout>
 
     </FrameLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
