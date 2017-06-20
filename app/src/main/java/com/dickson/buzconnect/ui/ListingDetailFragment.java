@@ -3,6 +3,7 @@ package com.dickson.buzconnect.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,15 +23,17 @@ import butterknife.Bind;
 public class ListingDetailFragment extends Fragment implements View.OnClickListener {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
-    @Bind(R.id.restaurantImageView)
-    ImageView mImageLabel;
-    @Bind(R.id.restaurantNameTextView) TextView mNameLabel;
-    @Bind(R.id.cuisineTextView) TextView mCategoriesLabel;
+    @Bind(R.id.listingImageView) ImageView mImageLabel;
+    @Bind(R.id.listingNameTextView) TextView mNameLabel;
+    @Bind(R.id.categoryTextView) TextView mCategoriesLabel;
     @Bind(R.id.ratingTextView) TextView mRatingLabel;
     @Bind(R.id.websiteTextView) TextView mWebsiteLabel;
     @Bind(R.id.phoneTextView) TextView mPhoneLabel;
     @Bind(R.id.addressTextView) TextView mAddressLabel;
-    @Bind(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
+    @Bind(R.id.openTimeTextView) TextView mOpenTimeLabel;
+    @Bind(R.id.openStateTextView) TextView mOpenStateLabel;
+    @Bind(R.id.savelistingButton) Button mSaveListingButton;
+    @Bind(R.id.viewImageButton) Button mViewImageButton;
 
     //  listing object
     private Listing mRestaurant;
@@ -50,5 +53,17 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
         restaurantDetailFragment.setArguments(args);
         return restaurantDetailFragment;
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        unwrapping listing on onCreate
+        mRestaurants = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_LISTINGS));
+        mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
+        mRestaurant = mRestaurants.get(mPosition);
+//        invoke the menu items
+        mSource = getArguments().getString(Constants.KEY_SOURCE);
+        setHasOptionsMenu(true);
+    }
+
 
 }
