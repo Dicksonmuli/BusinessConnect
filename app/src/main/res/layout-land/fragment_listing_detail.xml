@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dickson.buzconnect.ui.ListingDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGrey"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/image_blue"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/listingImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/listingNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@+id/listingImageView"
+                android:text="Listing name"
+                android:textColor="@color/colorPrimaryDarkOrange"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/categoryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/listingNameTextView"
+                android:text="Gas Station"
+                android:textColor="@color/colorSecondaryText"
+                android:textStyle="italic" />
+
+
+            <RatingBar
+                android:id="@+id/ratingTextView"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/listingImageView"
+                android:clickable="true"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:stepSize="0.1"
+                android:background="@color/colorDarkGrey"
+                android:layout_alignRight="@+id/listingNameTextView"
+                android:layout_alignEnd="@+id/listingNameTextView" />
+
+            <TextView
+                android:id="@+id/reviewsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="46dp"
+                android:layout_marginStart="46dp"
+                android:layout_toEndOf="@+id/listingNameTextView"
+                android:layout_toRightOf="@+id/listingNameTextView"
+                android:text="Reviews 12342"
+                android:textColor="@android:color/white"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/savelistingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/categoryTextView"
+                android:layout_alignBottom="@+id/categoryTextView"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/ic_add_white_24dp"
+                android:text="save" />
+
+            <Button
+                android:id="@+id/viewImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/ic_collections_white_24dp"
+                android:text="image galary" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_above="@+id/saveRestaurantButton"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="30dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Website"
+                            android:id="@+id/websiteTextView"
+                            android:drawableLeft="@drawable/ic_exit_to_app_black_24dp"
+                            android:drawablePadding="4dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(503) 223-1282"
+                            android:id="@+id/phoneTextView"
+                            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                            android:drawablePadding="4dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_above="@+id/saveRestaurantButton"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="30dp">
+
+                    <RelativeLayout
+                        android:layout_width="550dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="123 SW Best Ever Ave. Portland, Oregon, 97222"
+                            android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                            android:drawablePadding="4dp"
+                            android:id="@+id/addressTextView"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/locationTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:drawableLeft="@drawable/ic_directions_black_24dp"
+                            android:drawablePadding="4dp"
+                            android:gravity="center_vertical"
+                            android:layout_below="@+id/addressTextView"
+                            android:text="New york"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="550dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Open Time"
+                        android:id="@+id/openTimeTextView"
+                        android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                        android:drawablePadding="4dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Open State"
+                        android:id="@+id/openStateTextView"
+                        android:drawablePadding="4dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp"
+                        android:layout_below="@+id/openTimeTextView"
+                        android:gravity="center"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,4 +1,4 @@
-package com.dickson.buzconnect.services.models;
+package com.dickson.buzconnect.models;
 
 import org.parceler.Parcel;
 

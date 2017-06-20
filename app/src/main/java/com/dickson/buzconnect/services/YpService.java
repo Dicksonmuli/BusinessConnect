@@ -1,7 +1,7 @@
 package com.dickson.buzconnect.services;
 
 import com.dickson.buzconnect.Constants;
-import com.dickson.buzconnect.services.models.Listing;
+import com.dickson.buzconnect.models.Listing;
 
 import org.json.JSONArray;
 import org.json.JSONException;

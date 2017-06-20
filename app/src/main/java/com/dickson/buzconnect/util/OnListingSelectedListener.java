@@ -1,6 +1,6 @@
 package com.dickson.buzconnect.util;
 
-import com.dickson.buzconnect.services.models.Listing;
+import com.dickson.buzconnect.models.Listing;
 
 import java.util.ArrayList;
 
