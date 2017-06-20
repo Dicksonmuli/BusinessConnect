@@ -1,7 +1,9 @@
 package com.dickson.buzconnect.ui;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -11,9 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.models.Listing;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -108,6 +115,7 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
         mWebsiteLabel.setOnClickListener( this);
         mPhoneLabel.setOnClickListener(this);
         mAddressLabel.setOnClickListener( this);
+        mViewImageButton.setOnClickListener( this);
         //setting click listener to saveListingButton button
         if (mSource.equals(Constants.SOURCE_SAVED)) {
             mSaveListingButton.setVisibility(View.GONE);
@@ -128,6 +136,46 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
+    @Override
+    public void onClick(View v) {
+        //    implicit intent
+        if (v == mWebsiteLabel) {
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mListing.getWebsite()));
+            startActivity(webIntent);
+        }
+        if (v == mPhoneLabel) {
+            Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
+                    Uri.parse("tel:" + mListing.getPhone()));
+            startActivity(phoneIntent);
+        }
+        if (v == mAddressLabel) {
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("geo:" + mListing.getLatitude()
+                            + "," + mListing.getLongitude()
+                            + "?q=(" + mListing.getName() + ")"));
+            startActivity(mapIntent);
+        }
+        //explicit intent
+        if (v == mSaveListingButton) {
+            //getting the current user by user id when saveRest button is clicked
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+            DatabaseReference restaurantRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_BUSINESSES)
+                    .child(uid);
+            /** add the pushID of the restaurant to be saved before setting the
+             * value at given reference
+             */
+            DatabaseReference pushRef = restaurantRef.push();
+            String pushId = pushRef.getKey();
+            mRestaurant.setPushId(pushId);
+            pushRef.setValue(mRestaurant);
+            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
