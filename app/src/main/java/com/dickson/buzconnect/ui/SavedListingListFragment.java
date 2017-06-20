@@ -87,7 +87,7 @@ public class SavedListingListFragment extends Fragment {
 
 
 //        attach itemTouchHelper to enable the interfaces to communicate with the necessary callbacks
-        ItemTouchHelper.Callback callback = new com.dicksonmully6gmail.myrestaurants.util.SimpleItemTouchHelperCallback(mFirebaseAdapter);
+        ItemTouchHelper.Callback callback = new com.dickson.buzconnect.util.SimpleItemTouchHelperCallback(mFirebaseAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
