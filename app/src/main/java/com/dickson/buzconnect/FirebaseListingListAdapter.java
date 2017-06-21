@@ -137,4 +137,23 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
         getRef(position).removeValue();
 
     }
+    //re-assigning the 'index' property for each listing object in our array list and saving it to Firebase:
+    private void setIndexInFirebase() {
+        for (Listing listing : mListings) {
+            int index = mListings.indexOf(listing);
+            DatabaseReference ref = getRef(index);
+//            replacing setValue to index
+            ref.child("index").setValue(Integer.toString(index));
+//            restaurant.setIndex(Integer.toString(index));
+//            ref.setValue(restaurant);
+
+        }
+
+    }
+    @Override
+    public void cleanup() {
+        super.cleanup();
+        setIndexInFirebase();
+        mRef.removeEventListener(mChildEventListener);
+    }
 }
