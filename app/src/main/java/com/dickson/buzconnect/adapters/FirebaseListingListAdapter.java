@@ -1,14 +1,18 @@
-package com.dickson.buzconnect;
+package com.dickson.buzconnect.adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.ui.ListingDetailActivity;
+import com.dickson.buzconnect.ui.ListingDetailFragment;
 import com.dickson.buzconnect.util.ItemTouchHelperAdapter;
 import com.dickson.buzconnect.util.OnStartDragListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -144,7 +148,8 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
             DatabaseReference ref = getRef(index);
 //            replacing setValue to index
             ref.child("index").setValue(Integer.toString(index));
-//            restaurant.setIndex(Integer.toString(index));
+
+//            listing.setIndex(Integer.toString(index));
 //            ref.setValue(restaurant);
 
         }
@@ -156,4 +161,16 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
         setIndexInFirebase();
         mRef.removeEventListener(mChildEventListener);
     }
+    private void createDetailFragment(int position) {
+        // Creates new ListingDetailFragment with the given position:
+        ListingDetailFragment detailFragment = ListingDetailFragment.newInstance(mListings,
+                position, Constants.SOURCE_SAVED);
+        // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+        //  Replaces the FrameLayout with the RestaurantDetailFragment:
+        ft.replace(R.id.restaurantDetailContainer, detailFragment);
+        // Commits these changes:
+        ft.commit();
+    }
+
 }
