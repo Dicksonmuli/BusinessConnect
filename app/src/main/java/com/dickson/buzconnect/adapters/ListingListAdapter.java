@@ -1,7 +1,10 @@
 package com.dickson.buzconnect.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dickson.buzconnect.Constants;
+import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
+import com.dickson.buzconnect.ui.ListingDetailActivity;
+import com.dickson.buzconnect.ui.ListingDetailFragment;
 import com.dickson.buzconnect.util.OnListingSelectedListener;
+import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -50,11 +60,10 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
     public int getItemCount() {
         return mListings.size();
     }
-    //creating a new class(ListingViewHolder) inside ListingListAdapter to bind views and
-    //setting onClick listener
 
     /**
-     *
+     * creating a new class(ListingViewHolder) inside ListingListAdapter to bind views and
+     *setting onClick listener
      */
     public class ListingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @Bind(R.id.listingImageView) ImageView mListingImageView;
@@ -85,5 +94,48 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
             }
 
         }
+        // Takes position of restaurant in list as parameter:
+        private void createDetailFragment(int position) {
+            // Creates new ListingDetailFragment with the given position:
+            ListingDetailFragment detailFragment = ListingDetailFragment.newInstance(mListings, position, Constants.SOURCE_FIND);
+            // Gathers necessary components to replace the FrameLayout in the layout with the ListingDetailFragment:
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            //  Replaces the FrameLayout with the ListingDetailFragment:
+            ft.replace(R.id.restaurantDetailContainer, detailFragment);
+            // Commits these changes:
+            ft.commit();
+        }
+
+        /**
+         * creates an intent to navigate to our RestaurantDetailActivity
+         * @param v
+         */
+        @Override
+        public void onClick(View v) {
+            int itemPosition = getLayoutPosition();
+            mListingSelectedListener.onListingSelected(itemPosition, mListings, Constants.SOURCE_FIND);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, ListingDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_LISTINGS, Parcels.wrap(mListings));
+                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
+                mContext.startActivity(intent);
+            }
+        }
+        public void bindListing(Listing restaurant) {
+            Picasso.with(mContext)
+                    .load(restaurant.getImageUrl())
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mListingImageView);
+            mNameTextView.setText(restaurant.getName());
+            mCategoryTextView.setText(restaurant.getCategory());
+            mRatingTextView.setText("Rating: " + restaurant.getRating());
+        }
+
+
+    }
 
 }

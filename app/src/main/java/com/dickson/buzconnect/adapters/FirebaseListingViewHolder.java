@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.util.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
@@ -44,7 +45,7 @@ public class FirebaseListingViewHolder extends RecyclerView.ViewHolder
         TextView nameTextView = (TextView) mView.findViewById(R.id.listingNameTextView);
         TextView categoryTextView = (TextView) mView.findViewById(R.id.categoryTextView);
         TextView ratingTextView = (TextView) mView.findViewById(R.id.ratingTextView);
-        TextView openStateTextView = (TextView) mView.findViewById(R.id.ratingTextView);
+        TextView openStateTextView = (TextView) mView.findViewById(R.id.openStateTextView);
 
 
         //checking which image to retrieve from Firebase

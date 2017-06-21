@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dickson.buzconnect.Constants;
+import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,7 +55,7 @@ public class ListingDetailFragment extends Fragment implements View.OnClickListe
     @Bind(R.id.openStateTextView) TextView mOpenStateLabel;
     @Bind(R.id.savelistingButton) Button mSaveListingButton;
     @Bind(R.id.viewImageButton) Button mViewImageButton;
-    @Bind(R.id.couponUrlTextView) TextView mCouponUrlLabel;
+    @Bind(R.id.couponUrlTexView) TextView mCouponUrlLabel;
 
     //  listing object
     private Listing mListing;

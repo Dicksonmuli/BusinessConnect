@@ -45,20 +45,32 @@
                 android:textStyle="italic" />
 
 
-            <RatingBar
+            <!--<RatingBar-->
+                <!--android:id="@+id/ratingTextView"-->
+                <!--style="?android:attr/ratingBarStyleSmall"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_toRightOf="@+id/listingImageView"-->
+                <!--android:clickable="true"-->
+                <!--android:isIndicator="true"-->
+                <!--android:numStars="5"-->
+                <!--android:stepSize="0.1"-->
+                <!--android:background="@color/colorDarkGrey"-->
+                <!--android:layout_alignRight="@+id/listingNameTextView"-->
+                <!--android:layout_alignEnd="@+id/listingNameTextView" />-->
+
+            <TextView
                 android:id="@+id/ratingTextView"
-                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/listingImageView"
-                android:clickable="true"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.1"
-                android:background="@color/colorDarkGrey"
                 android:layout_alignRight="@+id/listingNameTextView"
-                android:layout_alignEnd="@+id/listingNameTextView" />
+                android:layout_alignEnd="@+id/listingNameTextView"
+                android:text="Rating 4/5"
+                android:textColor="@android:color/white"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/reviewsTextView"
@@ -233,6 +245,24 @@
                             android:layout_below="@+id/openTimeTextView"
                             android:gravity="center"/>
 
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="550dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Get Coupons"
+                            android:id="@+id/couponUrlTexView"
+                            android:drawablePadding="4dp"
+                            android:drawableLeft="@drawable/ic_content_cut_black_24dp"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"/>
                     </RelativeLayout>
 
 

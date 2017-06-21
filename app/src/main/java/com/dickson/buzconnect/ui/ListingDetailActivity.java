@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dickson.buzconnect.Constants;
+import com.dickson.buzconnect.R;
+import com.dickson.buzconnect.adapters.ListingPagerAdapter;
 import com.dickson.buzconnect.models.Listing;
 
 import org.parceler.Parcels;
