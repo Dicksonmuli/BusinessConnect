@@ -11,13 +11,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
+
+        </activity>
+        <activity android:name=".ui.ListingListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dickson.buzconnect.ui.MainActivity" />
+        </activity>
+        <activity android:name=".ui.ListingDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dickson.buzconnect.ui.ListingDetailActivity" />
+        </activity>
+        <activity android:name=".ui.SavedListingListActivity" />
+        <activity android:name=".ui.CreateAccountActivity">
+
+        </activity>
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.LoginActivity"></activity>
+
     </application>
 
 </manifest>

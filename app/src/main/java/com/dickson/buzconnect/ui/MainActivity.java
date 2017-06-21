@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             logout();
             return true;
         }
+        if (id == R.id.navigation_saved) {
+            Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
     //logout method
