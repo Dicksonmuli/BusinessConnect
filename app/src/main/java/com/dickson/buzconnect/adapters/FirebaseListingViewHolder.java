@@ -44,20 +44,20 @@ public class FirebaseListingViewHolder extends RecyclerView.ViewHolder
 
 
         //checking which image to retrieve from Firebase
-        if (!restaurant.getImageUrl().contains("http")) {
+        if (!listing.getImageUrl().contains("http")) {
             try {
-                Bitmap imageBitmap = decodeFromFirebaseBase64(restaurant.getImageUrl());
-                mRestaurantImageView.setImageBitmap(imageBitmap);
+                Bitmap imageBitmap = decodeFromFirebaseBase64(listing.getImageUrl());
+                mListingImageView.setImageBitmap(imageBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            // This block of code should already exist, we're just moving it to the 'else' statement:
+            // Take the photo from API if no captured photo found
             Picasso.with(mContext)
-                    .load(restaurant.getImageUrl())
+                    .load(listing.getImageUrl())
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
-                    .into(mRestaurantImageView);
+                    .into(mListingImageView);
 //            nameTextView.setText(restaurant.getName());
 //            categoryTextView.setText(restaurant.getCategories().get(0));
 //            ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
