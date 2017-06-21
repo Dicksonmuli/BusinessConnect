@@ -2,7 +2,9 @@ package com.dickson.buzconnect.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,12 +60,21 @@ public class FirebaseListingViewHolder extends RecyclerView.ViewHolder
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mListingImageView);
-//            nameTextView.setText(restaurant.getName());
-//            categoryTextView.setText(restaurant.getCategories().get(0));
-//            ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+
         }
-        nameTextView.setText(restaurant.getName());
-        categoryTextView.setText(restaurant.getCategories().get(0));
-        ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+        nameTextView.setText(listing.getName());
+        categoryTextView.setText(listing.getCategory());
+        ratingTextView.setText("Rating: " + listing.getRating());
+    }
+    /**
+     *  take the encoded image's string,
+     *  and use the built-in firebase utility to decode it back into a byte array
+     * @param image
+     * @return
+     * @throws IOException
+     */
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 }
