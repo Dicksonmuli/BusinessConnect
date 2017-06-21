@@ -1,6 +1,11 @@
 package com.dickson.buzconnect;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.view.MotionEventCompat;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.util.ItemTouchHelperAdapter;
@@ -11,6 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -71,6 +78,44 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+    }
+    @Override
+    protected void populateViewHolder(final FirebaseListingViewHolder viewHolder, Listing model, int position) {
+        viewHolder.bindListing(model);
+        //setting the orientation
+        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
+        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            createDetailFragment(0);
+        }
+
+        //setting ontouch listener on mListingImageView
+        viewHolder.mListingImageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                    mOnStartDragListener.onStartDrag(viewHolder);
+                }
+                return false;
+            }
+
+        });
+//        adding onclick listener
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = viewHolder.getAdapterPosition();
+                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    createDetailFragment(itemPosition);
+                }else {
+                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+                    //added to include source
+                    intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
+                    mContext.startActivity(intent);
+                }
             }
         });
     }
