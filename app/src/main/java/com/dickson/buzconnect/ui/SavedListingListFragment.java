@@ -16,6 +16,7 @@ import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.adapters.FirebaseListingListAdapter;
 import com.dickson.buzconnect.adapters.FirebaseListingViewHolder;
 import com.dickson.buzconnect.models.Listing;
+import com.dickson.buzconnect.util.OnStartDragListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SavedListingListFragment extends Fragment {
+public class SavedListingListFragment extends Fragment implements OnStartDragListener{
 
     //defining member variables and binding recycler view
     private FirebaseListingListAdapter mFirebaseAdapter;

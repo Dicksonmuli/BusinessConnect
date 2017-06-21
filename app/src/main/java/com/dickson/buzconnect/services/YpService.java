@@ -29,7 +29,7 @@ public class YpService {
 //        using HttpUrl class to construct the URL we'll send our request to
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YP_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.YP_LOCATION_QUERY_PARAMETER, location);
-        String url = urlBuilder.build().toString() + "&term=" + Constants.YP_TERM_QUERY_PARAMETER
+        String url = urlBuilder.build().toString() + "&term=" + term
                 + Constants.YP_FORMAT_PARAMETER + Constants.YP_API_KEY;
 
 //       create request using the created url

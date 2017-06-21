@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.itemSearchEditText) TextView mItemSearchEditText;
     @Bind(R.id.locationEditText) TextView mLocationEditText;
     @Bind(R.id.findListingButton) Button mFindListingButton;
-    @Bind(R.id.navigation_saved) Button mSavedListingButton;
+//    @Bind(R.id.navigation_saved) Button mSavedListingButton;
 
 
     @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //setting onClick listeners in main activity
         mFindListingButton.setOnClickListener(this);
-        mSavedListingButton.setOnClickListener(this);
+//        mSavedListingButton.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
 
         }
-        if (v == mSavedListingButton) {
-            Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
-            startActivity(intent);
-        }
+//        if (v == mSavedListingButton) {
+//            Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
+//            startActivity(intent);
+//        }
     }
     //inflate overflow menu in the main activity
     @Override

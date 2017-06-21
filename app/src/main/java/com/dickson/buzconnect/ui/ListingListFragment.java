@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
+import com.dickson.buzconnect.adapters.ListingListAdapter;
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.services.YpService;
 import com.dickson.buzconnect.util.OnListingSelectedListener;
@@ -69,7 +70,7 @@ public class ListingListFragment extends Fragment {
         mRecentTerm = mSharedPreferences.getString(Constants.PREFERENCES_TERM_KEY, null);
 
         if (mRecentAddress != null && mRecentTerm != null) {
-            getListings(mRecentAddress);
+            getListings(mRecentAddress, mRecentTerm);
         }
 
         // Inflate the layout for this fragment
@@ -91,8 +92,8 @@ public class ListingListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                addToSharedPreferences(query);
-                getListings(query);
+//                addToSharedPreferences(query);
+//                getListings(query);
                 return false;
             }
 
@@ -103,8 +104,9 @@ public class ListingListFragment extends Fragment {
         });
     }
     //adding to sharedPreferences
-    private void addToSharedPreferences(String location) {
+    private void addToSharedPreferences(String location, String term) {
         mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+        mEditor.putString(Constants.PREFERENCES_TERM_KEY, term).apply();
     }
 
     /**
@@ -123,10 +125,10 @@ public class ListingListFragment extends Fragment {
             throw new ClassCastException(context.toString() + e.getMessage());
         }
     }
-    public void getListings(String location) {
+    public void getListings(String location, String term) {
         final YpService yelpService = new YpService();
 
-        yelpService.findListings(location, new Callback() {
+        yelpService.findListings(location, term, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {

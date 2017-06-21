@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "803704083788",
+    "firebase_url": "https://buzconnect-b7cac.firebaseio.com",
+    "project_id": "buzconnect-b7cac",
+    "storage_bucket": "buzconnect-b7cac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803704083788:android:21cb89ec61c62a49",
+        "android_client_info": {
+          "package_name": "com.dickson.buzconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803704083788-b8b78pm349g72uuc0q5bfsqsoaj1sj3l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dickson.buzconnect",
+            "certificate_hash": "9c1b136e2d4d3ba50e52ad9f6465bfd9612c22e1"
+          }
+        },
+        {
+          "client_id": "803704083788-kiobvpv0rdkdo35kramohunilh0219oo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu8vnzpdgKtwfXBTnisBSq1PCTrgE5GvY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803704083788-kiobvpv0rdkdo35kramohunilh0219oo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

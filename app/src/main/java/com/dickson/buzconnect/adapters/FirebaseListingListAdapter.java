@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.dickson.buzconnect.Constants;
+import com.dickson.buzconnect.R;
 import com.dickson.buzconnect.models.Listing;
 import com.dickson.buzconnect.ui.ListingDetailActivity;
 import com.dickson.buzconnect.ui.ListingDetailFragment;
