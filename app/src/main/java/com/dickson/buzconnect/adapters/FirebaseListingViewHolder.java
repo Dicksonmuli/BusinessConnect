@@ -1,5 +1,7 @@
 package com.dickson.buzconnect.adapters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -76,5 +78,25 @@ public class FirebaseListingViewHolder extends RecyclerView.ViewHolder
     public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
         byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+    @Override
+    public void onItemSelected() {
+        //programmatic approach of animation
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.9f)
+                .scaleY(0.9f)
+                .setDuration(500);
+
+    }
+
+    @Override
+    public void onItemClear() {
+//        programmatic approach of animation
+       itemView.animate()
+               .alpha(1f)
+               .scaleX(1f)
+               .scaleY(1f);
+
     }
 }
