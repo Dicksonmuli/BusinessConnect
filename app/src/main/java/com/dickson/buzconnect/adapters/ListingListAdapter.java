@@ -34,4 +34,10 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
         ListingViewHolder viewHolder = new ListingViewHolder(view, mListings, mOnListingSelectedListener);
         return viewHolder;
     }
+    //onBindView holder to check the position of listing and binding views on it
+    @Override
+    public void onBindViewHolder(ListingListAdapter.ListingViewHolder  holder, int position) {
+        holder.bindListing(mListings.get(position))
+    }
+    //get item count for the listings
 }
