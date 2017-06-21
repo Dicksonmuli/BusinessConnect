@@ -29,6 +29,15 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
     private ChildEventListener mChildEventListener;
     private ArrayList<Listing> mListings = new ArrayList<>();
 
+    /**
+     * constructor with the folling parameters
+     * @param modelClass
+     * @param modelLayout
+     * @param viewHolderClass
+     * @param ref
+     * @param onStartDragListener
+     * @param context
+     */
     public FirebaseListingListAdapter(Class<Listing> modelClass, int modelLayout,
                                          Class<FirebaseListingViewHolder> viewHolderClass,
                                          Query ref, OnStartDragListener onStartDragListener, Context context) {
