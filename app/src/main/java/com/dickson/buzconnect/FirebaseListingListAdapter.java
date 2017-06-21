@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by dickson on 6/21/17.
@@ -119,5 +120,21 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
                 }
             }
         });
+    }
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        //updates the order of mListings ArrayList items passing in the list
+        Collections.swap(mListings, fromPosition, toPosition);
+        //notifies the adapter that the underlying data has been changed
+        notifyItemMoved(fromPosition, toPosition);
+        return false;
+    }
+    @Override
+    public void onItemDismiss(int position) {
+        //removes the item from mRestaurants at the given position
+        mListings.remove(position);
+        //getRef() returns the DatabaseReference and .removeValue() deletes the object from firebase
+        getRef(position).removeValue();
+
     }
 }
