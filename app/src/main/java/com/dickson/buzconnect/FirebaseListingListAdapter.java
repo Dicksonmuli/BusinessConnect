@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.dickson.buzconnect.models.Listing;
+import com.dickson.buzconnect.ui.ListingDetailActivity;
 import com.dickson.buzconnect.util.ItemTouchHelperAdapter;
 import com.dickson.buzconnect.util.OnStartDragListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -109,9 +110,9 @@ public class FirebaseListingListAdapter extends FirebaseRecyclerAdapter<Listing,
                 if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                     createDetailFragment(itemPosition);
                 }else {
-                    Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                    Intent intent = new Intent(mContext, ListingDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
-                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+                    intent.putExtra(Constants.EXTRA_KEY_LISTINGS, Parcels.wrap(mListings));
                     //added to include source
                     intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_SAVED);
                     mContext.startActivity(intent);
