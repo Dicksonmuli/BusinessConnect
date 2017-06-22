@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
@@ -40,6 +44,8 @@ public class ListingListActivity extends AppCompatActivity implements OnListingS
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private ListingListAdapter mAdapter;
 
+    private TextView mTextMessage;
+
     public static final String TAG = ListingListActivity.class.getSimpleName();
     private OnListingSelectedListener mOnRestaurantSelectedListener;
 
@@ -54,7 +60,8 @@ public class ListingListActivity extends AppCompatActivity implements OnListingS
         String term = intent1.getStringExtra("term");
         getListings(location, term);
 
-
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 //        if (savedInstanceState != null) {
 //            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 //                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
@@ -76,6 +83,32 @@ public class ListingListActivity extends AppCompatActivity implements OnListingS
 //        }
 
     }
+    //bottom navigation intents
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.title_home);
+                    Intent intent = new Intent(ListingListActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    return true;
+                case R.id.navigation_dashboard:
+                    Intent intent2 = new Intent(ListingListActivity.this, ListingListActivity.class);
+                    startActivity(intent2);
+//                    mTextMessage.setText(R.string.title_dashboard);
+                    return true;
+                case R.id.navigation_saved:
+                    Intent intent3 = new Intent(ListingListActivity.this, SavedListingListActivity.class);
+                    startActivity(intent3);
+                    return true;
+            }
+            return false;
+        }
+
+    };
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

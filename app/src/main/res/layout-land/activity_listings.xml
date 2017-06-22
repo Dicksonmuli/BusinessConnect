@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"/>
 
+
     <!--<fragment-->
         <!--android:id="@+id/fragmentItemsList"-->
         <!--android:name="com.dickson.buzconnect.ui.ListingListFragment"-->
