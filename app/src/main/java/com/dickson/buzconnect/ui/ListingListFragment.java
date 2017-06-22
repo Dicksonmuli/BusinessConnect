@@ -1,6 +1,7 @@
 package com.dickson.buzconnect.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +49,7 @@ public class ListingListFragment extends Fragment {
     private OnListingSelectedListener mOnRestaurantSelectedListener;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    public static final String TAG = ListingListFragment.class.getSimpleName();
 
     public ListingListFragment() {
         // Required empty public constructor
@@ -69,9 +72,9 @@ public class ListingListFragment extends Fragment {
         mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
         mRecentTerm = mSharedPreferences.getString(Constants.PREFERENCES_TERM_KEY, null);
 
-        if (mRecentAddress != null && mRecentTerm != null) {
+//        if (mRecentAddress != null && mRecentTerm != null) {
             getListings(mRecentAddress, mRecentTerm);
-        }
+//        }
 
         // Inflate the layout for this fragment
         return view;
@@ -139,7 +142,12 @@ public class ListingListFragment extends Fragment {
             public void onResponse(Call call, Response response) {
                 mListings = yelpService.processResults(response);
 
-
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 getActivity().runOnUiThread(new Runnable() {
                     // Line above states 'getActivity()' instead of previous 'RestaurantListActivity.this'

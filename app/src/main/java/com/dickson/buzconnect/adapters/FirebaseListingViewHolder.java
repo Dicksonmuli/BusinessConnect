@@ -68,6 +68,7 @@ public class FirebaseListingViewHolder extends RecyclerView.ViewHolder
         nameTextView.setText(listing.getName());
         categoryTextView.setText(listing.getCategory());
         ratingTextView.setText("Rating: " + listing.getRating());
+        openStateTextView.setText("O/C: " + listing.getOpenStatus());
     }
     /**
      *  take the encoded image's string,

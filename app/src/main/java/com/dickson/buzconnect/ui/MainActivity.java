@@ -1,6 +1,8 @@
 package com.dickson.buzconnect.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dickson.buzconnect.Constants;
 import com.dickson.buzconnect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +29,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     //member variables
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     CarouselView carouselView;
@@ -33,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
 
     //binding views
-    @Bind(R.id.itemSearchEditText) TextView mItemSearchEditText;
-    @Bind(R.id.locationEditText) TextView mLocationEditText;
+    @Bind(R.id.itemSearchEditText) EditText mItemSearchEditText;
     @Bind(R.id.findListingButton) Button mFindListingButton;
+    @Bind(R.id.locationEditText) EditText mLocationEditText;
 //    @Bind(R.id.navigation_saved) Button mSavedListingButton;
 
 
@@ -44,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         carouselView = (CarouselView) findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
@@ -61,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName() + "!");
+                    getSupportActionBar().setTitle("Welcome, " + user.getDisplayName());
                 }else {
 
                 }
@@ -95,14 +105,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == mFindListingButton) {
-//                   String location = mLocationEditText.getText().toString();
-
-//                   saveLocationtoFirebase(location);
-//                   if(!(location).equals("")) {
-//                       addToSharedPreferences(location);
-//                   }
+                String location = mLocationEditText.getText().toString();
+                String term = mItemSearchEditText.getText().toString();
+//                   saveLocationtoFirebase(location, term);
+                   if(!(location).equals("")) {
+                       addToSharedPreferences(location);
+                   }
             Intent intent = new Intent(MainActivity.this, ListingListActivity.class);
-//                   intent.putExtra("location", location);
+            intent.putExtra("location", location);
+            intent.putExtra("term", term);
             startActivity(intent);
 
         }
@@ -110,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
 //            startActivity(intent);
 //        }
+    }
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+        mEditor.putString(Constants.PREFERENCES_TERM_KEY, location).apply();
     }
     //inflate overflow menu in the main activity
     @Override
@@ -147,17 +162,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-//                    return true;
-//                case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_dashboard);
-//                    return true;
-//                case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_notifications);
-//                    return true;
-//            }
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.title_home);
+                    return true;
+                case R.id.navigation_dashboard:
+                    mTextMessage.setText(R.string.title_dashboard);
+                    return true;
+                case R.id.navigation_saved:
+                    Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
+                    startActivity(intent);
+                    return true;
+            }
             return false;
         }
 

@@ -70,6 +70,7 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
         @Bind(R.id.listingNameTextView) TextView mNameTextView;
         @Bind(R.id.categoryTextView) TextView mCategoryTextView;
         @Bind(R.id.ratingTextView) TextView mRatingTextView;
+        @Bind(R.id.openStateTextView) TextView mOpenStateTextView;
 
         //member variable integer for orientation
         private int mOrientation;
@@ -81,6 +82,7 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
                                  OnListingSelectedListener listingSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
             mContext = itemView.getContext();
             itemView.setOnClickListener(this);
             //Determines the current orientation of the device:
@@ -113,7 +115,7 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            mListingSelectedListener.onListingSelected(itemPosition, mListings, Constants.SOURCE_FIND);
+//            mListingSelectedListener.onListingSelected(itemPosition, mListings, Constants.SOURCE_FIND);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
@@ -124,15 +126,20 @@ public class ListingListAdapter extends RecyclerView.Adapter<ListingListAdapter.
                 mContext.startActivity(intent);
             }
         }
-        public void bindListing(Listing restaurant) {
-            Picasso.with(mContext)
-                    .load(restaurant.getImageUrl())
-                    .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
-                    .into(mListingImageView);
-            mNameTextView.setText(restaurant.getName());
-            mCategoryTextView.setText(restaurant.getCategory());
-            mRatingTextView.setText("Rating: " + restaurant.getRating());
+        public void bindListing(Listing listing) {
+            try {
+                Picasso.with(mContext)
+                        .load(listing.getImageUrl())
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(mListingImageView);
+            }catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+            mNameTextView.setText(listing.getName());
+            mCategoryTextView.setText(listing.getCategory());
+            mRatingTextView.setText("Rating: " + listing.getRating());
+            mOpenStateTextView.setText(listing.getOpenStatus());
         }
 
 

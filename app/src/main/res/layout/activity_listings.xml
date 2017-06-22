@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.ListingListActivity">
 
-    <fragment
-        android:id="@+id/fragmentListingList"
-        android:name="com.dickson.buzconnect.ui.ListingListActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_listing_list" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"/>
+
+    <!--<fragment-->
+        <!--android:id="@+id/fragmentListingList"-->
+        <!--android:name="com.dickson.buzconnect.ui.ListingListFragment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--tools:layout="@layout/fragment_listing_list" />-->
 
 </LinearLayout>

@@ -8,13 +8,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <fragment
-        android:id="@+id/fragmentItemsList"
-        android:name="com.dickson.buzconnect.ui.ListingListFragment"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        tools:layout="@layout/fragment_listing_list" />
+        android:id="@+id/recyclerView"/>
+
+    <!--<fragment-->
+        <!--android:id="@+id/fragmentItemsList"-->
+        <!--android:name="com.dickson.buzconnect.ui.ListingListFragment"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="3"-->
+        <!--tools:layout="@layout/fragment_listing_list" />-->
 
     <View android:background="@color/colorPrimaryBlue"
         android:layout_width="2dp"

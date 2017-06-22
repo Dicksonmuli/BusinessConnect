@@ -26,10 +26,10 @@ public class YpService {
     public static void findListings(String location, String term, Callback callback) {
 
 
-//        using HttpUrl class to construct the URL we'll send our request to
+//        using HttpUrl class to construct the URL send  request to
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YP_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.YP_LOCATION_QUERY_PARAMETER, location);
-        String url = urlBuilder.build().toString() + "&term=" + term
+//        urlBuilder.addQueryParameter(Constants.YP_LOCATION_QUERY_PARAMETER, location);
+        String url = urlBuilder.build().toString() + location + "&term=" + term
                 + Constants.YP_FORMAT_PARAMETER + Constants.YP_API_KEY;
 
 //       create request using the created url
@@ -48,7 +48,7 @@ public class YpService {
             String jsonData = response.body().string();
             if (response.isSuccessful()) {
                 JSONObject ypJSON = new JSONObject(jsonData);
-                JSONArray businessesJSON = ypJSON.getJSONObject("searchResults").getJSONObject("searchListings").
+                JSONArray businessesJSON = ypJSON.getJSONObject("searchResult").getJSONObject("searchListings").
                         getJSONArray("searchListing");
                 for (int i = 0; i < businessesJSON.length(); i++) {
                     JSONObject listingJSON = businessesJSON.getJSONObject(i);
@@ -56,11 +56,11 @@ public class YpService {
                     String city = listingJSON.getString("city");
                     String category = listingJSON.getString("categories");
                     String phone = listingJSON.optString("phone", "Phone not available");
-                    String website = listingJSON.getString("url");
+                    String website = listingJSON.getString("moreInfoURL");
                     double rating = listingJSON.getDouble("averageRating");
                     String imageUrl = listingJSON.optString("adImage");
-                    double latitude = listingJSON.getDouble("latitude");
-                    double longitude = listingJSON.getDouble("longitude");
+                    double latitude = listingJSON.optDouble("latitude");
+                    double longitude = listingJSON.optDouble("longitude");
                     String couponUrl = listingJSON.optString("couponURL");
                     String address = listingJSON.getString("street");
                     String openHours = listingJSON.getString("openHours");
