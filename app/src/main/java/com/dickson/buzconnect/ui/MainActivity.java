@@ -165,13 +165,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.navigation_dashboard:
+                    Intent intent2 = new Intent(MainActivity.this, ListingListActivity.class);
+                    startActivity(intent2);
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_saved:
-                    Intent intent = new Intent(MainActivity.this, SavedListingListActivity.class);
-                    startActivity(intent);
+                    Intent intent3 = new Intent(MainActivity.this, SavedListingListActivity.class);
+                    startActivity(intent3);
                     return true;
             }
             return false;

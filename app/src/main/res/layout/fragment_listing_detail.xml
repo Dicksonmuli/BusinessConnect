@@ -13,36 +13,32 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:background="@drawable/image_blue"
             android:paddingBottom="10dp">
 
-            <ImageView
-                android:id="@+id/listingImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
 
             <TextView
                 android:id="@+id/listingNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignTop="@+id/listingImageView"
                 android:text="Listing name"
                 android:textColor="@color/colorPrimaryDarkOrange"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/categoryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_above="@+id/listingImageView"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/listingNameTextView"
-                android:text="Gas Station"
-                android:textColor="@color/colorSecondaryText"
-                android:textStyle="italic" />
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:id="@+id/listingImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_above="@+id/ratingTextView"
+                android:layout_alignRight="@+id/listingNameTextView"
+                android:layout_alignEnd="@+id/listingNameTextView" />
+
 
 
             <!--<RatingBar-->
@@ -64,37 +60,37 @@
                 android:id="@+id/ratingTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/listingImageView"
-                android:layout_alignRight="@+id/listingNameTextView"
-                android:layout_alignEnd="@+id/listingNameTextView"
                 android:text="Rating 4/5"
                 android:textColor="@android:color/white"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp" />
 
             <TextView
                 android:id="@+id/reviewsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="46dp"
-                android:layout_marginStart="46dp"
-                android:layout_toEndOf="@+id/listingNameTextView"
-                android:layout_toRightOf="@+id/listingNameTextView"
                 android:text="Reviews 12342"
                 android:textColor="@android:color/white"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/viewImageButton"
+                android:layout_toStartOf="@+id/viewImageButton"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp" />
 
             <Button
                 android:id="@+id/savelistingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/categoryTextView"
-                android:layout_alignBottom="@+id/categoryTextView"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/ic_add_white_24dp"
-                android:text="save" />
+                android:text="save"
+                android:layout_above="@+id/viewImageButton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <Button
                 android:id="@+id/viewImageButton"
@@ -117,6 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -128,6 +125,7 @@
                     android:paddingLeft="30dp"
                     android:paddingTop="20dp"
                     android:paddingRight="30dp">
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -141,6 +139,7 @@
                             android:drawablePadding="4dp"
                             android:textSize="15sp"
                             android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryBlue"
                             android:layout_marginBottom="10dp"
                             android:gravity="center" />
 
@@ -154,6 +153,7 @@
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:gravity="center"
+                            android:textColor="@color/colorPrimaryBlue"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true" />
@@ -242,6 +242,7 @@
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:layout_marginBottom="10dp"
+                            android:background="#7EE081"
                             android:layout_below="@+id/openTimeTextView"
                             android:gravity="center"/>
 
@@ -265,7 +266,23 @@
                             android:gravity="center"/>
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="550dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:layout_marginTop="10dp">
 
+                        <TextView
+                            android:id="@+id/categoryTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:text="Gas Station"
+                            android:textColor="@color/colorSecondaryText"
+                            android:textStyle="italic" />
+
+                        </RelativeLayout>
                 </LinearLayout>
             </ScrollView>
 
