@@ -91,7 +91,6 @@ public class ListingListActivity extends AppCompatActivity implements OnListingS
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     Intent intent = new Intent(ListingListActivity.this, MainActivity.class);
                     startActivity(intent);
                     return true;
